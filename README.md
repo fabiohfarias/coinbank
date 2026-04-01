@@ -95,6 +95,9 @@ O Zustand com `persist` já cobre a necessidade de estado global de autenticaç�
 ### Formulários desacoplados
 `LoginForm` e `TransferForm` são componentes puramente de apresentação + RHF. Os efeitos colaterais (toast, navegação, invalidação de cache) ficam nos hooks `useLogin` e `useTransfer`.
 
+### Paginação Client-Side (Dashboard)
+Visando performance de renderização e usabilidade (sem poluir a tela com dezenas de transações), abstraí a lista do extrato com uma **paginação puramente client-side**. Utilizando componentes do `shadcn/ui`, segmentamos as transações do mock de 10 em 10, criando uma lógica amigável inclusive com paginação encurtada (*ellipsis*) na navegação do React.
+
 ---
 
 ## Testes
@@ -121,6 +124,7 @@ npm run test
 - Internacionalização (i18n)
 - Testes E2E com Playwright
 - CI/CD com validação de cobertura mínima
+- **Resiliência e Concorrência Financeira:** Adição de `Idempotency-Key` nas requisições de transferência para evitar duplicidade em *retries*, além de tratamento robusto de *race conditions* e validação de concorrência com o back-end em operações de saldo.
 
 ---
 
